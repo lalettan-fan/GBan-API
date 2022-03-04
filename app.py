@@ -1,7 +1,7 @@
 from flask import Flask
 from flask_restful import Api
-from DataBase.admins import adminDb
 from Resources import Home, Ban, User, Unban, Banned
+import threading, os, requests, time
 
 app = Flask(__name__)
 api = Api(app)
@@ -15,8 +15,15 @@ api.add_resource(User, "/api/user/<int:user_id>")
 
 @app.route('/docs')
 def documention():
-    x = adminDb.add_admin('W4RR10R')
-    return x
+    return "DOCS UNAVAIABLE"
+def timed_check():
+    url= os.environ.get('URL', 'www.google.com')
+    while(True):
+        print(requests.get(url))
+        time.sleep(600)
 
 if __name__ == '__main__':
+    th = threading.Thread(target=timed_check)
+    th.daemon = True
+    th.start()
     app.run(debug=True)
