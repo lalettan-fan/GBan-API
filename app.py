@@ -17,7 +17,7 @@ api.add_resource(User, "/api/user/<int:user_id>")
 def documention():
     return "DOCS UNAVAIABLE"
 def timed_check():
-    url= os.environ.get('URL', 'www.google.com')
+    url= os.environ.get('URL', 'https://www.google.com')
     while(True):
         print(requests.get(url))
         time.sleep(600)
@@ -26,4 +26,4 @@ if __name__ == '__main__':
     th = threading.Thread(target=timed_check)
     th.daemon = True
     th.start()
-    app.run(debug=True)
+    app.run()
